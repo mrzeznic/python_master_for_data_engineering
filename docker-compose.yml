@@ -1,0 +1,13 @@
+version: '3'
+services:
+  spark:
+    image: apache/spark:latest
+    container_name: spark
+    ports:
+      - "4040:4040"  # Spark UI
+    environment:
+      - ENABLE_INIT_DAEMON=false  # Disable the Init Container
+    command: >
+      bash -c "start-master.sh;
+               start-slave.sh spark://localhost:7077;
+               tail -f /dev/null"
